@@ -104,7 +104,7 @@ public class Term implements Comparable<Term> {
 					return 1;
 				}
 				if (first.length() < myPrefixSize && second.length() < myPrefixSize && i >= second.length() && i >= first.length()) {
-					return 1;
+					return 0;
 				}
 				int comparison = first.charAt(i) - second.charAt(i);
 				if(comparison > 0) {
