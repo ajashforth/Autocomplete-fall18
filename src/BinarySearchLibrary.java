@@ -67,6 +67,9 @@ public class BinarySearchLibrary {
 	public static <T>
 	int lastIndex(List<T> list, 
                	  T target, Comparator<T> comp) {
+		if (list == null) {
+			return -1;
+		}
 		
 		int low = 0;
 		int high = list.size();
