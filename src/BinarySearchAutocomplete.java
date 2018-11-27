@@ -8,6 +8,7 @@ import java.util.*;
  * @author Austin Lu, adapted from Kevin Wayne
  * @author Jeff Forbes
  * @author Owen Astrachan in Fall 2018, revised API
+ * @author Alec Ashforth, student at Duke
  */
 public class BinarySearchAutocomplete implements Autocompletor {
 
@@ -105,8 +106,34 @@ public class BinarySearchAutocomplete implements Autocompletor {
 	 */
 	@Override
 	public List<Term> topMatches(String prefix, int k) {
-
+		if (k < 0) {
+			throw new IllegalArgumentException("Illegal value of k:"+k);
+		}
+		if (prefix == null) {
+			throw new NullPointerException("This is a null pointer exception");
+		}
+		int first = -1;
+		int last = -1;
 		ArrayList<Term> list = new ArrayList<>();
-		return list;
+		if (prefix != "") {
+			first = BinarySearchLibrary.firstIndex(Arrays.asList(myTerms), new Term(prefix,0), new Term.PrefixOrder(k));
+			last = BinarySearchLibrary.lastIndex(Arrays.asList(myTerms), new Term(prefix,0), new Term.PrefixOrder(k));
+			if (first == -1 || last == -1) {
+				return list;
+			}
+		}
+		else {
+			first = 0;
+			last = myTerms.length - 1;
+		}
+		for(int i = first; i <= last;i++) {
+			list.add(myTerms[i]);
+		}
+		Collections.sort(list, new Term.ReverseWeightOrder());
+		ArrayList<Term> finalList = new ArrayList<>();
+		for(int i = 0; i < Math.min(k,  list.size()); i++) {
+			finalList.add(list.get(i));
+		}
+		return finalList;
 	}
 }

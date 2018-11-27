@@ -98,17 +98,17 @@ public class Term implements Comparable<Term> {
 			String second = w.getWord();
 			for(int i = 0; i < myPrefixSize; i++) {
 				if (first.length() < myPrefixSize && second.length() >= myPrefixSize && i >= first.length()) {
-					return -1;
+					return -1; //if both strings have been the same so far and 'v' runs out of characters, then 'w' comes first
 				}
 				if (first.length() >= myPrefixSize && second.length() < myPrefixSize && i >= second.length()) {
-					return 1;
+					return 1; //if both strings have been the same so far and 'w' runs out of characters, then 'v' comes first
 				}
 				if (first.length() < myPrefixSize && second.length() < myPrefixSize && i >= second.length() && i >= first.length()) {
-					return 0;
+					return 0; //if both strings have been the same so far and they have both run out of characters, they must be equal
 				}
 				int comparison = first.charAt(i) - second.charAt(i);
 				if(comparison > 0) {
-					return 1;
+					return 1; //
 				}
 				else if(comparison < 0) {
 					return -1;
