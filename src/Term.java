@@ -29,16 +29,16 @@ public class Term implements Comparable<Term> {
 	public Term(String word, double weight) {
 		// TODO: Complete Term constructor
 		if(word == null) {
-			throw new NullPointerException("The word: " + word + " is null.");
+			throw new NullPointerException("The word: " + word + " is null."); //if the word is null
 		}
 		else {
-			myWord = word;
+			myWord = word; //set myWord for all valid words
 		}
 		if(weight < 0) {
-			throw new IllegalArgumentException("negative weight "+ weight);
+			throw new IllegalArgumentException("negative weight "+ weight); //if the weight is less than 0
 		}
 		else {
-			myWeight = weight;
+			myWeight = weight; //ser myWeight for all valid weights
 		}
 	}
 	
@@ -108,13 +108,13 @@ public class Term implements Comparable<Term> {
 				}
 				int comparison = first.charAt(i) - second.charAt(i);
 				if(comparison > 0) {
-					return 1; //
+					return 1; //if term v comes later in the alphabet than term w
 				}
 				else if(comparison < 0) {
-					return -1;
+					return -1; //if term w comes later in the alphabet than term v
 				}
 			}
-			return 0;
+			return 0; //if the 2 terms are equal up to myPrefixSize
 		}
 	
 	}
@@ -128,12 +128,12 @@ public class Term implements Comparable<Term> {
 	public static class ReverseWeightOrder implements Comparator<Term> {
 		public int compare(Term v, Term w) {
 			if (v.getWeight() > w.getWeight()) {
-				return -1;
+				return -1; //if term v has a larger weight than term w, since this is reverse order
 			}
 			else if (v.getWeight() < w.getWeight()) {
-				return 1;
+				return 1; //if term w has a larger weight than term v, since this is reverse order
 			}
-			return 0;
+			return 0; //if the two terms have the same weight
 		}
 	}
 
@@ -146,12 +146,12 @@ public class Term implements Comparable<Term> {
 	public static class WeightOrder implements Comparator<Term> {
 		public int compare(Term v, Term w) {
 			if (v.getWeight() > w.getWeight()) {
-				return 1;
+				return 1; //if term v has a larger weight than term w
 			}
 			else if (v.getWeight() < w.getWeight()) {
-				return -1;
+				return -1; //if term w has a larger weight than term v
 			}
-			return 0;
+			return 0; //if the two terms have the same weight
 		}
 	}
 }

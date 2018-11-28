@@ -100,39 +100,42 @@ public class BinarySearchAutocomplete implements Autocompletor {
 	 * @return An array of the k words with the largest weights among all words
 	 *         starting with prefix, in descending weight order. If less than k
 	 *         such words exist, return an array containing all those words If
-	 *         no such words exist, reutrn an empty array
+	 *         no such words exist, return an empty array
 	 * @throws a
 	 *             NullPointerException if prefix is null
+	 *             IllegalArgumentException if k is negative
 	 */
 	@Override
 	public List<Term> topMatches(String prefix, int k) {
 		if (k < 0) {
-			throw new IllegalArgumentException("Illegal value of k:"+k);
+			throw new IllegalArgumentException("Illegal value of k:"+k); //don't want to return lists of negative size
 		}
 		if (prefix == null) {
-			throw new NullPointerException("This is a null pointer exception");
+			throw new NullPointerException("This is a null pointer exception"); //null is not a valid prefix
 		}
 		int first = -1;
 		int last = -1;
 		ArrayList<Term> list = new ArrayList<>();
 		if (!prefix.equals("")) {
+			//find the first index with the prefix
 			first = BinarySearchLibrary.firstIndex(Arrays.asList(myTerms), new Term(prefix,0), new Term.PrefixOrder(prefix.length()));
+			//find the last index with the prefix
 			last = BinarySearchLibrary.lastIndex(Arrays.asList(myTerms), new Term(prefix,0), new Term.PrefixOrder(prefix.length()));
 			if (first == -1 || last == -1 || k == 0) {
-				return list;
+				return list; //if there are no words with the prefix or if the list to return should have size 0
 			}
 		}
 		else {
 			first = 0;
-			last = myTerms.length - 1;
+			last = myTerms.length - 1; //if the prefix is "", use all of the terms in myTerms
 		}
 		for(int i = first; i <= last;i++) {
-			list.add(myTerms[i]);
+			list.add(myTerms[i]); //add all of the terms with the prefix to this temporary list
 		}
-		Collections.sort(list, new Term.ReverseWeightOrder());
+		Collections.sort(list, new Term.ReverseWeightOrder()); //sort the list
 		ArrayList<Term> finalList = new ArrayList<>();
 		for(int i = 0; i < Math.min(k,  list.size()); i++) {
-			finalList.add(list.get(i));
+			finalList.add(list.get(i)); //retrieve the top 10 most used words from the list
 		}
 		return finalList;
 	}

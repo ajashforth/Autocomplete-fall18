@@ -32,24 +32,24 @@ public class BinarySearchLibrary {
     	int firstIndex(List<T> list, 
 	               	T target, Comparator<T> comp) {
 		if (list.size() == 0) {
-			return -1;
+			return -1; //if the size is 0, then the target isn't in the list
 		}
 		int low = -1;
-		int high = list.size()-1;
+		int high = list.size()-1; //set the bounds, low open, high closed
 		while (low + 1 != high) {
-			int mid = (low + high) / 2;
-			T midval = list.get(mid);
+			int mid = (low + high) / 2; //create the mid index number within the current high and low
+			T midval = list.get(mid); 
 			int cmp = comp.compare(midval, target);
 			if (cmp < 0)
-	            low = mid;
+	            low = mid; //if the target comes later in the alphabet than midval
 	        else {
-	        	high = mid;
+	        	high = mid; //if midval comes later in the alphabet than the target
 	        }
 		}
 		T lastval = list.get(high);
-		int cmp = comp.compare(lastval, target);
+		int cmp = comp.compare(lastval, target); //one last comparison to find the first index if there
 		if (cmp == 0) {
-			return high;
+			return high; 
 		}
 		return -1;
 	}
@@ -70,22 +70,22 @@ public class BinarySearchLibrary {
 	int lastIndex(List<T> list, 
                	  T target, Comparator<T> comp) {
 		if (list.size() == 0) {
-			return -1;
+			return -1; //if the size is 0, then the target isn't in the list
 		}
 		int low = 0;
-		int high = list.size();
+		int high = list.size(); //set the bounds, low closed, high open
 		while (low + 1 != high) {
-			int mid = (low + high) / 2;
+			int mid = (low + high) / 2; //create the mid index number within the current high and low
 			T midval = list.get(mid);
 			int cmp = comp.compare(midval, target);
 			if (cmp <= 0)
-	            low = mid;
+	            low = mid; //if the target comes later in the alphabet than midval
 	        else {
-	        	high = mid;
+	        	high = mid; //if midval comes later in the alphabet than the target
 	        }
 		}
 		T lastval = list.get(low);
-		int cmp = comp.compare(lastval, target);
+		int cmp = comp.compare(lastval, target); //one last comparison to find the last index if there
 		if (cmp == 0) {
 			return low;
 		}
